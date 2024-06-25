@@ -315,7 +315,7 @@ public class NovaComanda extends javax.swing.JFrame {
            comanda.setStatus("aberto");
            comanda.setCodigo(codigo);
  
-        Main.atualizarTabelaComandas(comanda);
+        Main.adicionarItemTabelaComandas(comanda);
         dispose();
 
     }//GEN-LAST:event_AbrirComandaBtnActionPerformed

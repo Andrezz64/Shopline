@@ -211,6 +211,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Encerrar Comanda"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EncerrarBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

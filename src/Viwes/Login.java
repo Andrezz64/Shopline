@@ -44,6 +44,7 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("ShopLine - Entrar");
         setBackground(new java.awt.Color(0, 0, 0));
+        setIconImages(null);
         setResizable(false);
 
         Title.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N

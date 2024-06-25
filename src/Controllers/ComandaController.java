@@ -111,8 +111,38 @@ public class ComandaController {
     public List<Comandas> findComadasAbertas() {
 
         em.getTransaction().begin();
-
+       
         String jpql = "SELECT p FROM Comandas p WHERE p.status = 'aberto'"; // Consulta JPQL para selecionar todos os registros
+        TypedQuery<Comandas> query = em.createQuery(jpql, Comandas.class);
+
+        List<Comandas> Comandas = query.getResultList(); // Obtém todos os registros da tabela
+
+        em.getTransaction().commit();
+        //em.close();
+        //emf.close();
+        return Comandas;
+    }
+    
+    public void fecharComanda(int idComanda) {
+    
+    em.getTransaction().begin();
+
+    Comandas comanda = em.find(Comandas.class, idComanda);
+    if (comanda != null) {
+        comanda.setStatus("fechado");
+        em.merge(comanda);
+    }
+
+    em.getTransaction().commit();
+    //em.close();
+    //emf.close();
+}
+    
+      public List<Comandas> findComadasFechadas() {
+
+        em.getTransaction().begin();
+
+        String jpql = "SELECT p FROM Comandas p WHERE p.status = 'fechado'"; // Consulta JPQL para selecionar todos os registros
         TypedQuery<Comandas> query = em.createQuery(jpql, Comandas.class);
 
         List<Comandas> Comandas = query.getResultList(); // Obtém todos os registros da tabela
@@ -122,6 +152,8 @@ public class ComandaController {
         emf.close();
         return Comandas;
     }
+
+    
 
     // Cria uma nova entry de produto.
     public int createOne(String NomeCliente) {

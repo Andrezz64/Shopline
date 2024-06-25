@@ -7,6 +7,7 @@ package Viwes;
 import Controllers.ComandaController;
 import Controllers.ProdutoController;
 import Controllers.ProdutosComandaController;
+import Models.Comandas;
 import Models.Produtos;
 import Models.TableModel;
 import java.awt.Color;
@@ -28,8 +29,10 @@ public class EditarComanda extends javax.swing.JFrame {
     private ProdutosComandaController ProdComandaControl = new ProdutosComandaController();
     private static List<Produtos> listaDeProdutos = new ArrayList<>();
     private static List<Produtos> NovosProdutos = new ArrayList<>();
+    private static ComandaController ComandaController = new ComandaController();
     private static TableModel modelo;
     int id;
+    String NomeClienteComanda;
     private ComandaController Control = new ComandaController();
     private ProdutosComandaController ProdutoComandacontroller = new ProdutosComandaController();
 
@@ -39,6 +42,7 @@ public class EditarComanda extends javax.swing.JFrame {
     public EditarComanda(int ComandaId, String NomeComanda) {
         listaDeProdutos = ProdutoControl.FindProdutosComanda(ComandaId);
         this.id = ComandaId;
+        this.NomeClienteComanda = NomeComanda;
         modelo = new TableModel(listaDeProdutos);
         initComponents();
         NomeCliente.setText(NomeComanda);
@@ -47,7 +51,7 @@ public class EditarComanda extends javax.swing.JFrame {
         tabela.setShowVerticalLines(true);
         tabela.setShowHorizontalLines(true);
         tabela.setGridColor(Color.gray);
-        // Adicione a tabela a um JScrollPane (opcional)
+        //Adicione a tabela a um JScrollPane (opcional)
         jScrollPane1.setViewportView(tabela);
 
     }
@@ -128,6 +132,11 @@ public class EditarComanda extends javax.swing.JFrame {
         });
 
         EncerrarBtn.setText("Encerrar Comanda");
+        EncerrarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EncerrarBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -272,6 +281,19 @@ public class EditarComanda extends javax.swing.JFrame {
         ProdComandaControl.createMany(NovosProdutos, id);
         dispose();
     }//GEN-LAST:event_SalvarBtnActionPerformed
+
+    private void EncerrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EncerrarBtnActionPerformed
+        ComandaController.fecharComanda(id);
+        Comandas ComandaFechadoLocal = new Comandas();
+        ComandaFechadoLocal.setCodigo(id);
+        ComandaFechadoLocal.setIdComanda(id);
+        ComandaFechadoLocal.setNomeCliente(NomeClienteComanda);
+        
+        Main.adicionarItemTabelaComandasFechadas(ComandaFechadoLocal);
+        Main.removerItemTabelaComandas(ComandaFechadoLocal);
+        dispose();
+        
+    }//GEN-LAST:event_EncerrarBtnActionPerformed
     /* */
     /**
      * @param args the command line arguments

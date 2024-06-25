@@ -8,7 +8,7 @@
     <class>Models.Produtoscomanda</class>
     <class>Models.Comandas</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:\Users\andre.infra\projetos\shopline\src\META-INF\ShopLine.db"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:C:\Program Files\Codenline\Shopline\ShopLine.db"/>
       <property name="javax.persistence.jdbc.user" value=""/>
       <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC"/>
       <property name="javax.persistence.jdbc.password" value=""/>
