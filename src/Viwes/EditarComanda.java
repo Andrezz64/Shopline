@@ -10,6 +10,7 @@ import Controllers.ProdutosComandaController;
 import Models.Comandas;
 import Models.Produtos;
 import Models.TableModel;
+import Modules.Time;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -30,19 +31,22 @@ public class EditarComanda extends javax.swing.JFrame {
     private static List<Produtos> listaDeProdutos = new ArrayList<>();
     private static List<Produtos> NovosProdutos = new ArrayList<>();
     private static ComandaController ComandaController = new ComandaController();
+    private static Time timeModule = new Time();
     private static TableModel modelo;
     int id;
     String NomeClienteComanda;
+    String DataAbertura;
     private ComandaController Control = new ComandaController();
     private ProdutosComandaController ProdutoComandacontroller = new ProdutosComandaController();
 
     /**
      * Creates new form EditarComanda
      */
-    public EditarComanda(int ComandaId, String NomeComanda) {
+    public EditarComanda(int ComandaId, String NomeComanda, String DataAbertura) {
         listaDeProdutos = ProdutoControl.FindProdutosComanda(ComandaId);
         this.id = ComandaId;
         this.NomeClienteComanda = NomeComanda;
+        this.DataAbertura = DataAbertura;
         modelo = new TableModel(listaDeProdutos);
         initComponents();
         NomeCliente.setText(NomeComanda);
@@ -283,12 +287,14 @@ public class EditarComanda extends javax.swing.JFrame {
     }//GEN-LAST:event_SalvarBtnActionPerformed
 
     private void EncerrarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EncerrarBtnActionPerformed
+        
         ComandaController.fecharComanda(id);
         Comandas ComandaFechadoLocal = new Comandas();
         ComandaFechadoLocal.setCodigo(id);
         ComandaFechadoLocal.setIdComanda(id);
         ComandaFechadoLocal.setNomeCliente(NomeClienteComanda);
-        
+        ComandaFechadoLocal.setDataAbertura(DataAbertura);
+        ComandaFechadoLocal.setDataEncerramento(timeModule.GetData());
         Main.adicionarItemTabelaComandasFechadas(ComandaFechadoLocal);
         Main.removerItemTabelaComandas(ComandaFechadoLocal);
         dispose();

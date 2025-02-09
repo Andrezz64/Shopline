@@ -26,6 +26,11 @@ import javax.persistence.Table;
     @NamedQuery(name = "Comandas.findByStatus", query = "SELECT c FROM Comandas c WHERE c.status = :status")})
 public class Comandas implements Serializable {
 
+    @Column(name = "data_abertura")
+    private String dataAbertura;
+    @Column(name = "data_encerramento")
+    private String dataEncerramento;
+
     @Column(name = "codigo")
     private Integer codigo;
     private static final long serialVersionUID = 1L;
@@ -108,6 +113,22 @@ public class Comandas implements Serializable {
 
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
+    }
+
+    public String getDataAbertura() {
+        return dataAbertura;
+    }
+
+    public void setDataAbertura(String dataAbertura) {
+        this.dataAbertura = dataAbertura;
+    }
+
+    public String getDataEncerramento() {
+        return dataEncerramento;
+    }
+
+    public void setDataEncerramento(String dataEncerramento) {
+        this.dataEncerramento = dataEncerramento;
     }
 
 

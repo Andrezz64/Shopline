@@ -13,6 +13,7 @@ import Models.DadosItemVenda;
 import Models.Produtos;
 import Models.TableModel;
 import Models.TableModelComandas;
+import Models.TableModelComandasFechadas;
 import Models.Vendas;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
@@ -48,7 +49,7 @@ public class Main extends javax.swing.JFrame {
     
     private static TableModel modelo = new TableModel(listaDeProdutos);
     private static TableModelComandas ModeloComanda = new TableModelComandas(ListaComandas);
-    private static TableModelComandas ModeloComandaFechada = new TableModelComandas(ListaComandasFechadas);
+    private static TableModelComandasFechadas ModeloComandaFechada = new TableModelComandasFechadas(ListaComandasFechadas);
     /**
      * Creates new form Main
      */
@@ -101,9 +102,10 @@ public class Main extends javax.swing.JFrame {
                     int column = TabelaComanda.getSelectedColumn(); // Obter a coluna selecionada
                     Object value = TabelaComanda.getValueAt(row, 1); // Obter o valor da célula
                     Object NomeComanda = TabelaComanda.getValueAt(row, 0);
+                    Object DataAbertura = TabelaComanda.getValueAt(row, 2);
                     int IdComanda = Integer.parseInt("" + value);
 
-                    EditarComanda comanda = new EditarComanda(IdComanda, "" + NomeComanda);
+                    EditarComanda comanda = new EditarComanda(IdComanda, "" + NomeComanda, ""+DataAbertura);
                     comanda.setVisible(rootPaneCheckingEnabled);
                     comanda.setLocationRelativeTo(jTabbedPane2);
                     comanda.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -121,6 +123,26 @@ public class Main extends javax.swing.JFrame {
                             }
                         }
                     });
+                }
+            }
+        });
+        
+                TabelaComandaFechada.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Verificar se foi um clique duplo
+                    int row = TabelaComandaFechada.getSelectedRow(); // Obter a linha selecionada
+                    int column = TabelaComandaFechada.getSelectedColumn(); // Obter a coluna selecionada
+                    Object value = TabelaComandaFechada.getValueAt(row, 1); // Obter o valor da célula
+                    Object NomeComanda = TabelaComandaFechada.getValueAt(row, 0);
+                    Object DataAbertura = TabelaComandaFechada.getValueAt(row, 2);
+                    int IdComanda = Integer.parseInt("" + value);
+
+                    ComandaFechadaProdutos comanda = new ComandaFechadaProdutos(IdComanda, "" + NomeComanda, ""+DataAbertura);
+                    comanda.setVisible(rootPaneCheckingEnabled);
+                    comanda.setLocationRelativeTo(jTabbedPane2);
+                    comanda.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
                 }
             }
         });
@@ -210,7 +232,6 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Shopline PDV");
         setMinimumSize(new java.awt.Dimension(1200, 710));
-        setPreferredSize(new java.awt.Dimension(1200, 710));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -478,12 +499,12 @@ public class Main extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3)
-                    .addComponent(ComandaFechadaTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ComandaFechadaTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(atualizarTabelaComandasFechadasBtn)
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addGap(128, 128, 128))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

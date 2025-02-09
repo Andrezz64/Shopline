@@ -10,6 +10,7 @@ import Controllers.ProdutosComandaController;
 import Models.Comandas;
 import Models.Produtos;
 import Models.TableModel;
+import Modules.Time;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class NovaComanda extends javax.swing.JFrame {
     private static List<Produtos> listaDeProdutos = new ArrayList<>();
     private static List<Produtos> NovosProdutos = new ArrayList<>();
     private static TableModel modelo = new TableModel(listaDeProdutos);
+    private static Time DateModule = new Time();
     private   ComandaController Control = new ComandaController();
     private ProdutosComandaController ProdutoComandacontroller = new ProdutosComandaController();
     /**
@@ -304,7 +306,7 @@ public class NovaComanda extends javax.swing.JFrame {
       
     
         int codigo = Control.createOne(NomeClienteInput.getText());
-    
+        String DataAbertura = DateModule.GetData();
         int id = Control.findIdByCodigo(codigo);
           
          ProdutosComandaController ProdutoControl = new ProdutosComandaController();
@@ -314,6 +316,7 @@ public class NovaComanda extends javax.swing.JFrame {
            comanda.setNomeCliente(NomeClienteInput.getText());
            comanda.setStatus("aberto");
            comanda.setCodigo(codigo);
+           comanda.setDataAbertura(DataAbertura);
  
         Main.adicionarItemTabelaComandas(comanda);
         dispose();

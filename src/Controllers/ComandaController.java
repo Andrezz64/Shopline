@@ -3,6 +3,7 @@ package Controllers;
 
 import Models.Comandas;
 import Models.Produtos;
+import Modules.Time;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,6 +19,7 @@ public class ComandaController {
 
     private final EntityManagerFactory emf = Persistence.createEntityManagerFactory("shopLinePU");
     private final EntityManager em = emf.createEntityManager();
+    private Time timeModule = new Time();
 
     // Procura por um produto com um ID especifico
     public Comandas findOne(int id) {
@@ -130,6 +132,7 @@ public class ComandaController {
     Comandas comanda = em.find(Comandas.class, idComanda);
     if (comanda != null) {
         comanda.setStatus("fechado");
+        comanda.setDataEncerramento(timeModule.GetData());
         em.merge(comanda);
     }
 
@@ -162,6 +165,7 @@ public class ComandaController {
         NovaComanda.setNomeCliente(NomeCliente);
         NovaComanda.setStatus("aberto");
         NovaComanda.setCodigo(ultimoCódigo() + 1);
+        NovaComanda.setDataAbertura(timeModule.GetData());
         em.getTransaction().begin();
         em.persist(NovaComanda);
         em.getTransaction().commit();

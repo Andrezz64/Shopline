@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelComandasFechadas extends AbstractTableModel {
 
     private List<Comandas> Comandas;
-    private String[] colunas = {"Cliente", "Código"};
+    private String[] colunas = {"Cliente", "Código","Data de Abertura","Data de Fechamento"};
 
     public TableModelComandasFechadas(List<Comandas> Comandas) {
         this.Comandas = Comandas;
@@ -31,6 +31,10 @@ public class TableModelComandasFechadas extends AbstractTableModel {
                 return Comanda.getNomeCliente();
             case 1:
                 return Comanda.getCodigo();
+            case 2: 
+                return Comanda.getDataAbertura();
+            case 3:
+                return Comanda.getDataEncerramento();
             default:
                 return null;
         }
